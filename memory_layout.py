@@ -1,3 +1,4 @@
+from typing import Counter
 from PyQt5.QtWidgets import QPushButton, QRadioButton, QSpinBox, QLabel, QGroupBox, QButtonGroup, QVBoxLayout, QHBoxLayout
 from PyQt5.QtCore import Qt
 
@@ -7,7 +8,10 @@ box_minutes = QSpinBox()
 box_minutes.setValue(30)
 text = QLabel('Минут')
 
-question = QLabel('Яблоко')
+counter = QLabel('0')
+result_count = QLabel('Верно. Всего отвечено верно 0/4')
+
+question = QLabel('')
 lb_Quesion = QLabel('')
 
 RadioGroupBox = QGroupBox('Варианты ответа')
@@ -39,28 +43,20 @@ layout_ans1.addLayout(layout_ans3)
 
 text_correct = 'Верно'
 text_wrong = 'Неверно'
-frm_question = 'Яблуко'
-frm_right = 'apple'
-frm_wrong1 = 'application'
-frm_wrong2 = 'building'
-frm_wrong3 = 'caterpillar'
 
-answer = RadButton4
-wrong_answer1 = RadButton2
-wrong_answer2 = RadButton3
-wrong_answer3 = RadButton1
 
-RadButton1.setText(frm_wrong3)
-RadButton2.setText(frm_wrong2)
-RadButton3.setText(frm_wrong1)
-RadButton4.setText(frm_right)
+answer4 = RadButton4
+answer1 = RadButton2
+answer2 = RadButton3
+answer3 = RadButton1
+
 
 AnsGroupBox = QGroupBox("Результат теста")
 lb_Result = QLabel('') 
 lb_Correct = QLabel('')
 
 layout_res = QVBoxLayout()
-layout_res.addWidget(lb_Result, alignment=(Qt.AlignLeft | Qt.AlignTop))
+layout_res.addWidget(result_count, alignment=(Qt.AlignLeft | Qt.AlignTop))
 layout_res.addWidget(lb_Correct, alignment=Qt.AlignHCenter, stretch=2)
 AnsGroupBox.setLayout(layout_res)
 AnsGroupBox.hide()
@@ -88,12 +84,50 @@ layout_line4.addWidget(submit, stretch=2)
 def show_result():
     RadioGroupBox.hide()
     AnsGroupBox.show()
-    submit.setText('Наступне питання')
+    submit.setText('Следущий вопрос')
+
+def check_result():
+    if counter.text() == '1':
+        correct = answer4.isChecked()
+        incorrect = answer1.isChecked() or answer2.isChecked() or answer3.isChecked()
+    elif counter.text() == '2':
+        correct = answer3.isChecked()
+        incorrect = answer4.isChecked() or answer2.isChecked() or answer1.isChecked()
+    elif counter.text() == '3':
+        correct = answer1.isChecked()
+        incorrect = answer4.isChecked() or answer2.isChecked() or answer3.isChecked()
+    elif counter.text() == '4':
+        correct = answer4.isChecked()
+        incorrect = answer1.isChecked() or answer2.isChecked() or answer3.isChecked()
+
+    if correct:
+        if result_count.text() == 'Верно. Всего отвечено верно 0/4' or result_count.text() == 'Неверно. Всего отвечено верно 0/4':
+            result_count.setText('Верно. Всего отвечено верно 1/4')
+        elif result_count.text() == 'Верно. Всего отвечено верно 1/4' or result_count.text() == 'Неверно. Всего отвечено верно 1/4':
+            result_count.setText('Верно. Всего отвечено верно 2/4')
+        elif result_count.text() == 'Верно. Всего отвечено верно 2/4' or result_count.text() == 'Неверно. Всего отвечено верно 2/4':
+            result_count.setText('Верно. Всего отвечено верно 3/4')
+        elif result_count.text() == 'Верно. Всего отвечено верно 3/4' or result_count.text() == 'Неверно. Всего отвечено верно 3/4':
+            result_count.setText('Верно. Всего отвечено верно 4/4')
+            question.setText('Тест закончен. Выйдите из программы')
+            submit.hide()
+        show_result()
+    if incorrect:
+
+        if result_count.text() == 'Верно. Всего отвечено верно 0/4' or result_count.text() == 'Неверно. Всего отвечено верно 0/4':
+            result_count.setText('Неверно. Всего отвечено верно 0/4')
+        elif result_count.text() == 'Верно. Всего отвечено верно 1/4' or result_count.text() == 'Неверно. Всего отвечено верно 1/4':
+            result_count.setText('Неверно. Всего отвечено верно 1/4')
+        elif result_count.text() == 'Верно. Всего отвечено верно 2/4' or result_count.text() == 'Неверно. Всего отвечено верно 2/4':
+            result_count.setText('Неверно. Всего отвечено верно 2/4')
+        elif result_count.text() == 'Верно. Всего отвечено верно 3/4' or result_count.text() == 'Неверно. Всего отвечено верно 3/4':
+            result_count.setText('Неверно. Всего отвечено верно 3/4')
+        show_result()
 
 def show_question():
     RadioGroupBox.show()
     AnsGroupBox.hide()
-    submit.setText('Відповісти')
+    submit.setText('Ответить')
 
     RadioGroup.setExclusive(False)#Зняти обмеження, щоб скинути вибір
     RadButton1.setChecked(False)
@@ -101,3 +135,36 @@ def show_question():
     RadButton3.setChecked(False)
     RadButton4.setChecked(False)
     RadioGroup.setExclusive(True)
+
+    if counter.text() == '0':
+        question.setText('Перевод слова - Яблоко')
+        lb_Correct.setText('Apple')
+        answer1.setText('Apply')
+        answer2.setText('Ant')
+        answer3.setText('Appart')
+        answer4.setText('Apple')
+        counter.setText('1')
+    elif counter.text() == '1':
+        question.setText('Перевод слова - Piggy bank')
+        lb_Correct.setText('Свинья копилка')
+        answer1.setText('Банк со свинкой')
+        answer2.setText('Банк свиньи')
+        answer3.setText('Свинья копилка')
+        answer4.setText('Свиной банк')
+        counter.setText('2')
+    elif counter.text() == '2':
+        question.setText('Не являетя правильным переводом - Iron')
+        lb_Correct.setText('Мягкий')
+        answer1.setText('Мягкий')
+        answer2.setText('Утюг')
+        answer3.setText('Железный')
+        answer4.setText('Железо')
+        counter.setText('3')
+    elif counter.text() == '3':
+        question.setText('Слова, которые не были в вопросах')
+        lb_Correct.setText('Твёрдость')
+        answer1.setText('Apple')
+        answer2.setText('Свинья копилка')
+        answer3.setText('Iron')
+        answer4.setText('Твёрдость')
+        counter.setText('4')
