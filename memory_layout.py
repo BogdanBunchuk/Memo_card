@@ -1,6 +1,7 @@
 from typing import Counter
-from PyQt5.QtWidgets import QPushButton, QRadioButton, QSpinBox, QLabel, QGroupBox, QButtonGroup, QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
+from memory_custom import *
 import random
 menu_button = QPushButton('Меню')
 sleep = QPushButton('Отдохнуть')
@@ -62,6 +63,8 @@ layout_res.addWidget(lb_Correct, alignment=Qt.AlignHCenter, stretch=2)
 AnsGroupBox.setLayout(layout_res)
 AnsGroupBox.hide()
 
+
+
 layout_test = QHBoxLayout()
 
 layout_line1 = QHBoxLayout()
@@ -82,8 +85,9 @@ layout_line3.addWidget(AnsGroupBox, stretch=2)
 layout_line4.addWidget(submit, stretch=2)
 
 class Question():
-    def __init__(self, question, answer1, answer2, answer3, answer4):
+    def __init__(self, question, correct, answer1, answer2, answer3, answer4):
         self.question = question
+        self.correct = correct
         self.answer1 = answer1
         self.answer2 = answer2
         self.answer3 = answer3
@@ -156,22 +160,18 @@ def show_question():
     RadioGroup.setExclusive(True)
 
     if counter.text() == '0':
-        q1 = Question('Перевод слова - Яблоко', 'Apply', 'Ant', 'Appart', 'Apple')
-        lb_Correct.setText('Apple')
+        q1 = Question(ques1[0], 'Apple', ques1[1], ques1[2], ques1[3], ques1[4])
         q1.set_question()
         counter.setText('1')
     elif counter.text() == '1':
-        lb_Correct.setText('Свинья копилка')
-        q2 = Question('Перевод слова - Piggy bank', 'Банк со свинкой', 'Банк свиньи', 'Свинья копилка', 'Свиной банк')
+        q2 = Question(ques2[0], 'Свинья копилка', ques2[1], ques2[2], ques2[3], ques2[4])
         q2.set_question()
         counter.setText('2')
     elif counter.text() == '2':
-        lb_Correct.setText('Мягкий')
-        q3 = Question('Не являетя правильным переводом - Iron', 'Мягкий', 'Утюг', 'Железный', 'Железо')
+        q3 = Question(ques3[0], 'Мягкий', ques3[1], ques3[2], ques3[3], ques3[4])
         q3.set_question()
         counter.setText('3')
     elif counter.text() == '3':
-        q4 = Question('Слова, которые не были в вопросах', 'Apple', 'Свинья копилка', 'Iron', 'Твёрдость')
-        lb_Correct.setText('Твёрдость')
+        q4 = Question(ques4[0], 'Твёрдость', ques4[1], ques4[2], ques4[3], ques4[4])
         q4.set_question()
         counter.setText('4')
