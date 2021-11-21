@@ -13,7 +13,6 @@ counter = QLabel('0')
 result_count = QLabel('Верно. Всего отвечено верно 0/4')
 
 question = QLabel('')
-lb_Quesion = QLabel('')
 
 RadioGroupBox = QGroupBox('Варианты ответа')
 RadioGroup = QButtonGroup()
@@ -54,12 +53,12 @@ text_correct = 'Верно'
 text_wrong = 'Неверно'
 
 AnsGroupBox = QGroupBox("Результат теста")
-lb_Result = QLabel('') 
-lb_Correct = QLabel('')
+lb_Result = QLabel('')
+correct_ans = QLabel('')
 
 layout_res = QVBoxLayout()
 layout_res.addWidget(result_count, alignment=(Qt.AlignLeft | Qt.AlignTop))
-layout_res.addWidget(lb_Correct, alignment=Qt.AlignHCenter, stretch=2)
+layout_res.addWidget(correct_ans, alignment=Qt.AlignHCenter, stretch=2)
 AnsGroupBox.setLayout(layout_res)
 AnsGroupBox.hide()
 
@@ -94,10 +93,12 @@ class Question():
         self.answer4 = answer4
     def set_question(self):
         question.setText(self.question)
+        correct_ans.setText(self.correct)
         answer1.setText(self.answer1)
         answer2.setText(self.answer2)
         answer3.setText(self.answer3)
         answer4.setText(self.answer4)
+    
     def got_right(self):
         print('Это правиьный ответ!')
     def got_wrong(self):
@@ -122,30 +123,33 @@ def check_result():
     elif counter.text() == '4':
         correct = answer4.isChecked()
         incorrect = answer1.isChecked() or answer2.isChecked() or answer3.isChecked()
+        question.setText('Тест закончен. Выйдите из программы')
+        submit.hide()
 
     if correct:
-        if result_count.text() == 'Верно. Всего отвечено верно 0/4' or result_count.text() == 'Неверно. Всего отвечено верно 0/4':
+        if '0' in result_count.text():
             result_count.setText('Верно. Всего отвечено верно 1/4')
-        elif result_count.text() == 'Верно. Всего отвечено верно 1/4' or result_count.text() == 'Неверно. Всего отвечено верно 1/4':
+        elif '1' in result_count.text():
             result_count.setText('Верно. Всего отвечено верно 2/4')
-        elif result_count.text() == 'Верно. Всего отвечено верно 2/4' or result_count.text() == 'Неверно. Всего отвечено верно 2/4':
+        elif '2' in result_count.text():
             result_count.setText('Верно. Всего отвечено верно 3/4')
-        elif result_count.text() == 'Верно. Всего отвечено верно 3/4' or result_count.text() == 'Неверно. Всего отвечено верно 3/4':
+        elif '3' in result_count.text():
             result_count.setText('Верно. Всего отвечено верно 4/4')
-            question.setText('Тест закончен. Выйдите из программы')
-            submit.hide()
+
         show_result()
     if incorrect:
 
-        if result_count.text() == 'Верно. Всего отвечено верно 0/4' or result_count.text() == 'Неверно. Всего отвечено верно 0/4':
+        if '0' in result_count.text():
             result_count.setText('Неверно. Всего отвечено верно 0/4')
-        elif result_count.text() == 'Верно. Всего отвечено верно 1/4' or result_count.text() == 'Неверно. Всего отвечено верно 1/4':
+        elif '1' in result_count.text():
             result_count.setText('Неверно. Всего отвечено верно 1/4')
-        elif result_count.text() == 'Верно. Всего отвечено верно 2/4' or result_count.text() == 'Неверно. Всего отвечено верно 2/4':
+        elif '2' in result_count.text():
             result_count.setText('Неверно. Всего отвечено верно 2/4')
-        elif result_count.text() == 'Верно. Всего отвечено верно 3/4' or result_count.text() == 'Неверно. Всего отвечено верно 3/4':
+        elif '3' in result_count.text():
             result_count.setText('Неверно. Всего отвечено верно 3/4')
         show_result()
+
+
 
 def show_question():
     RadioGroupBox.show()
@@ -158,20 +162,16 @@ def show_question():
     RadButton3.setChecked(False)
     RadButton4.setChecked(False)
     RadioGroup.setExclusive(True)
-
     if counter.text() == '0':
-        q1 = Question(ques1[0], 'Apple', ques1[1], ques1[2], ques1[3], ques1[4])
-        q1.set_question()
+        q1 = Question(ques1[0], ques1[4], ques1[1], ques1[2], ques1[3], ques1[4])
         counter.setText('1')
     elif counter.text() == '1':
-        q2 = Question(ques2[0], 'Свинья копилка', ques2[1], ques2[2], ques2[3], ques2[4])
-        q2.set_question()
+        q1 = Question(ques2[0], ques2[1], ques2[1], ques2[2], ques2[3], ques2[4])
         counter.setText('2')
     elif counter.text() == '2':
-        q3 = Question(ques3[0], 'Мягкий', ques3[1], ques3[2], ques3[3], ques3[4])
-        q3.set_question()
+        q1 = Question(ques3[0], ques3[1], ques3[1], ques3[2], ques3[3], ques3[4])
         counter.setText('3')
     elif counter.text() == '3':
-        q4 = Question(ques4[0], 'Твёрдость', ques4[1], ques4[2], ques4[3], ques4[4])
-        q4.set_question()
+        q1 = Question(ques4[0], ques4[4], ques4[1], ques4[2], ques4[3], ques4[4])
         counter.setText('4')
+    q1.set_question()
