@@ -98,6 +98,10 @@ class Question():
         answer3.setText(self.answer3)
         answer4.setText(self.answer4)
     
+    def get_answer(self):
+        if answer1.isChecked() and answer1.text() == correct_ans.text():
+            test = 0
+
     def got_right(self):
         print('Это правиьный ответ!')
     def got_wrong(self):

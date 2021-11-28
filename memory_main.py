@@ -10,7 +10,16 @@ def click_OK(self):
         show_question()
 
 def sleep_click(self):
+    timer = QTimer()
+    time = int(box_minutes.value())
+    sleep_time = time * 60000
+    timer.setInterval(sleep_time)
+    timer.start()
+    win_card.hide()
     not_working.show()
+    timer.stop()
+    not_working.hide()
+    win_card.show()
 
 
 def click_edit_button(self):
@@ -66,6 +75,8 @@ win_card = QWidget()
 win_card.resize(win_weight, win_height)
 win_card.setWindowTitle('Memory Card')
 win_card.move(300, 300)
+
+edit_button.hide()
 
 layout_card = QVBoxLayout()
 layout_card.stretch(2)

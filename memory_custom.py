@@ -83,13 +83,15 @@ cus_ques2 = ['Вопрос', 'правильно', 'неправильно', 'н
 cus_ques3 = ['Вопрос', 'правильно', 'неправильно', 'неправильно', 'неправильно']
 cus_ques4 = ['Вопрос', 'правильно', 'неправильно', 'неправильно', 'неправильно']
 
-cus_ques = [ques1[0], ques2[0], ques3[0], ques4[0]]
+cus_ques = [cus_ques1[0], cus_ques2[0], cus_ques3[0], cus_ques4[0]]
+
+ques = [ques1[0], ques2[0], ques3[0], ques4[0]]
 line = QFormLayout()
-obj1 = QLineEdit(ques1[0])
-obj2 = QLineEdit(ques1[4])
-obj3 = QLineEdit(ques1[2])
-obj4 = QLineEdit(ques1[3])
-obj5 = QLineEdit(ques1[1])
+obj1 = QLineEdit()
+obj2 = QLineEdit()
+obj3 = QLineEdit()
+obj4 = QLineEdit()
+obj5 = QLineEdit()
 
 line.addRow('Вопрос' ,obj1)
 line.addRow('Правильный ответ' ,obj2)
