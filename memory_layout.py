@@ -1,4 +1,3 @@
-from typing import Counter
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from memory_custom import *
