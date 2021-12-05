@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-from memory_custom import *
 import random
 menu_button = QPushButton('Меню')
 sleep = QPushButton('Отдохнуть')
@@ -61,7 +60,10 @@ layout_res.addWidget(correct_ans, alignment=Qt.AlignHCenter, stretch=2)
 AnsGroupBox.setLayout(layout_res)
 AnsGroupBox.hide()
 
-
+ques1 = ['Перевод слова - Яблоко', 'Apply', 'Ant', 'Appart', 'Apple']
+ques2 = ['Перевод слова - Piggy bank', 'Банк со свинкой', 'Банк свиньи', 'Свинья копилка', 'Свиной банк']
+ques3 = ['Не являетя правильным переводом - Iron', 'Мягкий', 'Утюг', 'Железный', 'Железо']
+ques4 = ['Слова, которые не были в вопросах', 'Apple', 'Свинья копилка', 'Iron', 'Твёрдость']
 
 layout_test = QHBoxLayout()
 
